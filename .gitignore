@@ -1,0 +1,6 @@
+*.sw[a-z]
+*.sqlite3
+*.DS_Store
+*.bundle
+Gemfile.lock
+test/node_modules

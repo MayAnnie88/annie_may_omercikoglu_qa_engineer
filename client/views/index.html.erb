@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookings checking panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+  </head>
+  <body>
+    <div class="ui container">
+      <br>
+      <h1 class="ui header">
+        Bookings checking panel
+      </h1>
+
+      <% if @bookings %>
+        <table id="bookings" class="ui attached blue table">
+          <thead>
+            <tr>
+              <th>Reference</th>
+              <th>Amount</th>
+              <th>Amount with fees</th>
+              <th>Amount received</th>
+              <th>Quality check</th>
+              <th>Over payment</th>
+              <th>Under payment</th>
+            </tr>
+          </thead>
+          <% @bookings.each do |booking| %>
+            <tr>
+              <td><%= booking.reference %></td>
+              <td><%= booking.amount %></td>
+              <td><%= booking.amount_with_fees %></td>
+              <td><%= booking.amount_received %></td>
+              <td>
+                <% booking.quality_checks.each do |quality_check| %>
+                  <%= quality_check %></br>
+                <% end %>
+              </td>
+              <td>
+                <i class="icon <%= "checkmark" if booking.over_payment? %>"></i>
+              </td>
+              <td>
+                <i class="icon <%= "checkmark" if booking.under_payment? %>"></i>
+              </td>
+            </tr>
+          <% end %>
+          <tfoot class="full-width">
+            <tr>
+              <th colspan="7">
+                <div onclick="location.reload();"
+                class="ui right floated small primary labeled icon button">
+                  <i class="repeat icon"></i> Refresh bookings
+                </div>
+              </th>
+            </tr>
+          </tfoot>
+        </table>
+      <% else %>
+        <p>You don't have any payment booking</p>
+      <% end %>
+    </div>
+  </body>
+</html>

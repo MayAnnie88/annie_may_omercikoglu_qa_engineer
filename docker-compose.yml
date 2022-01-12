@@ -1,0 +1,17 @@
+version: '2'
+services:
+  client:
+    build: ./client
+    working_dir: /app/client
+    ports:
+      - '9191:9191'
+    depends_on:
+      - server
+    environment:
+      BOOKINGS_ENDPOINT: 'http://server:9292/api/bookings'
+
+  server:
+    build: ./server
+    working_dir: /app/server
+    ports:
+      - '9292:9292'
